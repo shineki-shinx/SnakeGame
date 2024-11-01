@@ -99,7 +99,8 @@ bool ElementInDeque(sf::Vector2f element, std::deque<sf::Vector2f> deque) {
 void game() {
   sf::RenderWindow window(sf::VideoMode(2 * offset + CellSize * CellCount,
                                         2 * offset + CellSize * CellCount),
-                          "Snake Game omg");
+                          "Snake Game omg", sf::Style::Titlebar | sf::Style::Close);
+  window.setSize(sf::Vector2u(2 * offset + CellSize * CellCount, 2 * offset + CellSize * CellCount));
   window.setFramerateLimit(60);
   ImGui::SFML::Init(window);
   Food food;
