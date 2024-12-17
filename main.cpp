@@ -13,6 +13,7 @@
 // Global Variables
 sf::Color green = sf::Color(172, 204, 96, 255);
 sf::Color dg = sf::Color(43, 51, 24, 255);
+std::vector<sf::Color> cols{sf::Color(134, 166, 60), sf::Color(100, 122, 49),sf::Color(81, 99, 39),sf::Color(72, 89, 32), sf::Color(58, 71, 26), sf::Color(47, 59, 19),sf::Color(36, 46, 14), sf::Color(23, 31, 7)};
 int offset = 75;
 bool running = true;
 int CellSize = 30;
@@ -91,15 +92,14 @@ bool ElementInDeque(sf::Vector2f element, std::deque<sf::Vector2f> deque) {
   for (unsigned int i = 0; i < deque.size(); i++) {
     if (deque[i] == element) {
       return true;
-    }
-  }
+    } }
   return false;
 }
 
 void game() {
   sf::RenderWindow window(sf::VideoMode(2 * offset + CellSize * CellCount,
                                         2 * offset + CellSize * CellCount),
-                          "Snake Game omg", sf::Style::Titlebar | sf::Style::Close);
+                          "snake game omg", sf::Style::Titlebar | sf::Style::Close);
   window.setSize(sf::Vector2u(2 * offset + CellSize * CellCount, 2 * offset + CellSize * CellCount));
   window.setFramerateLimit(60);
   ImGui::SFML::Init(window);
@@ -155,8 +155,7 @@ void game() {
         }
         running = true;
       }
-    }
-    ImGui::SFML::Update(window, deltaClock.restart());
+    } ImGui::SFML::Update(window, deltaClock.restart());
     if (UpdateClock.getElapsedTime().asMilliseconds() >= (200 - Score * 5)) {
       if (running) {
         snake.update();
@@ -240,7 +239,7 @@ sf::Vector2f Food::GenerateRandomPos(std::deque<sf::Vector2f> SnakeBody) {
 
 sf::RoundedRectangleShape Snake::initsnakebody() {
   part.setSize(sf::Vector2f(CellSize, CellSize));
-  part.setFillColor(dg);
+  part.setFillColor(cols[body.size()-3]);
   return part;
 }
 
@@ -250,6 +249,7 @@ void Snake::draw(sf::RenderWindow &win, sf::RoundedRectangleShape prt) {
     float y = body[i].y;
     part.setCornersRadius(12);
     part.setCornerPointCount(10);
+    part.setFillColor(cols[i]);
     part.setPosition(
         sf::Vector2f(offset + x * CellSize, offset + y * CellSize));
     win.draw(part);
